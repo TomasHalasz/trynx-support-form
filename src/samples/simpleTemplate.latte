@@ -1,0 +1,88 @@
+<div class="modal fade" id="halasz_feedback_modal" tabindex="-1" role="dialog" aria-labelledby="feedback_modal" data-html2canvas-ignore="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" n:snippet="halaszFeedbackForm">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">{_$title}</h4>
+            </div>
+            {form renderedForm, class => 'ajax'}
+            <div class="modal-body">
+                <div class="row" n:if="count($flashes) > 0">
+                    <div class="col-12">
+                        <div class="alert__wrapper">
+                            <div n:foreach="$flashes as $flash" n:class="$flash->type" role="alert">
+                                {$flash->message}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" n:if="isset($form['name'])">
+                    <div class="col-12 col-sm-6">
+                        <div n:class="form-group, $form['name']->hasErrors() ? form-group--error">
+                            {label name}
+                            {input name, class => "form-control"}
+                            <span class="form__error" n:if="$form['name']->hasErrors()">{$form['name']->errors[0]}</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div n:class="form-group, $form['email']->hasErrors() ? form-group--error">
+                            {label email}
+                            {input email, class => "form-control"}
+                            <span class="form__error" n:if="$form['email']->hasErrors()">{$form['email']->errors[0]}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12">
+                        <div n:class="form-group, $form['subject']->hasErrors() ? form-group--error">
+                            {label subject}
+                            {input subject, class => "form-control"}
+                            <span class="form__error" n:if="$form['subject']->hasErrors()">{$form['subject']->errors[0]}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12">
+                        <div n:class="form-group, $form['message']->hasErrors() ? form-group--error">
+                            {label message}
+                            {input message, class => "form-control"}
+                            <span class="form__error" n:if="$form['message']->hasErrors()">{$form['message']->errors[0]}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-6">
+                        <div n:class="form-group, $form['image']->hasErrors() ? form-group--error">
+                            {label image:}
+                            {input image:, class => "hidden"}
+                            <br />
+                            <a id="btn-halasz-inform" class="btn btn-primary">{_$addScreenShot}</a>
+                            <br />
+                            <br />
+                            <img id="halasz_screenshot" />
+                            <span class="form__error" n:if="$form['image']->hasErrors()">{$form['image']->errors[0]}</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div n:class="form-group, $form['files']->hasErrors() ? form-group--error">
+                            {label files}
+                            {input files, class => "form-control hidden"}
+                            <div class="input-group">
+                                <span class="input-group-addon cursor-pointer glyphicon glyphicon-th-list" id="halasz_feedback_form_files_selector" aria-hidden="true"></span>
+                                <input type="text" class="form-control halasz_file_selector">
+                            </div>
+                            <span class="form__error" n:if="$form['files']->hasErrors()">{$form['files']->errors[0]}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                {*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*}
+                {input submit, class => 'btn btn-primary'}
+            </div>
+            {/form}
+        </div>
+    </div>
+</div>
+
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#halasz_feedback_modal" id="invoke_feedback_form_button" data-html2canvas-ignore="true">{_$invokeButtonText}</button>
