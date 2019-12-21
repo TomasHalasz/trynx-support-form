@@ -16,7 +16,7 @@ extensions:
 #### Injecting
 You can simply inject factory in Your Presenters/Services:
 ```php
-public function __construct(Halasz\Support\ISupportFormFactory $SupportFormFactory)
+public function __construct(Halasz\Support\Support\ISupportFormFactory $SupportFormFactory)
 {
     parent::__construct();
     ....
