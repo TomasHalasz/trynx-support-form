@@ -5,7 +5,7 @@ This extension add feedback form to your application.
 #### Download
 The best way to install `Halasz/TrynxSupportForm` is using Composer:
 ```sh
-$ composer require Halasz/TrynxSupportForm
+$ composer require halasz/trynx-support-form
 ```
 #### Registering
 You can enable the extension using your neon config:
