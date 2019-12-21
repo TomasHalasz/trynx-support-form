@@ -1,13 +1,13 @@
 <?php
 
-namespace Halasz\Support;
+namespace Halasz\Support\Support;
 
 use Nette\Application\UI\Control;
 use Nette\Localization\ITranslator;
 use Nette\ComponentModel\IComponent;
 use Nette\Http\Request;
 
-use Halasz\Support\RenderedFormFactory;
+use Halasz\Support\Support\RenderedFormFactory;
 
 class SupportForm extends Control
 {

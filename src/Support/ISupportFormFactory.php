@@ -1,6 +1,6 @@
 <?php
 
-namespace Halasz\Support;
+namespace Halasz\Support\Support;
 
 interface ISupportFormFactory
 {

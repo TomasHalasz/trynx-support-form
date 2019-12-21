@@ -3,7 +3,7 @@
 namespace Halasz\Support;
 
 use Nette\DI\CompilerExtension;
-use Halasz\Support\RenderedFormFactory;
+use Halasz\Support\Support\RenderedFormFactory;
 
 class SupportExtension extends CompilerExtension
 {

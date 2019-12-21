@@ -1,4 +1,4 @@
 services:
 	HalaszRenderedFormFactory:
-		factory: Halasz\Support\RenderedFormFactory
-	HalaszSupportForm: Halasz\Support\ISupportFormFactory
+		factory: Halasz\Support\Support\RenderedFormFactory
+	HalaszSupportForm: Halasz\Support\Support\ISupportFormFactory
