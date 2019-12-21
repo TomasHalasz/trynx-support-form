@@ -47,7 +47,7 @@ class SupportExtension extends CompilerExtension
         $builder = $this->getContainerBuilder();
         
         $this->compiler->loadDefinitionsFromConfig(
-            $this->loadFromFile(__DIR__ . '/config/common.neon')['services'],
+            $this->loadFromFile(__DIR__ . '/config/common.neon')['services']
         );
         
         $builder->getDefinition('HalaszRenderedFormFactory')
