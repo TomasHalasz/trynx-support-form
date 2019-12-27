@@ -129,6 +129,10 @@ Example of $_FILES content
 	'fileName3_ext' => [...]
 ]
 ```
+### Screenshot tips
+Screenshot is generated from body element of page. Screenshot is taken according to size of body element. In some layout cases is possible that body doesn't have correct height, so if this issue hapen's to you, check height of body element. 
+
+
 ## Returned data from specified URL
 This component is expecting XML with specified structure.
 ```xml
@@ -137,14 +141,14 @@ This component is expecting XML with specified structure.
 <error_message></error_message>
 </xml>
 ```
-If everything is correctly processed:
+##### If everything is correctly processed:
 ```xml
 <xml>
 <status>OK</status>
 <error_message></error_message>
 </xml>
 ```
-In case of some errors:
+##### In case of some errors:
 ```xml
 <xml>
 <status>ERROR</status>
