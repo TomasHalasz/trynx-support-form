@@ -22,6 +22,15 @@ public function __construct(Halasz\Support\Support\ISupportFormFactory $SupportF
     ....
 }
 ```
+#### Presenter
+When you need to create component in your presenter for use in template you can do it as shown bellow. Don't forget use namespace Halasz:
+```php
+    protected function createComponentSupportForm()
+    {
+        return $this->supportForm->create();
+    }
+	
+```
 #### Templates
 Create method of interface ISupportFormFactory returns an component, so in your .latte you can simply call:
 ```php
@@ -78,6 +87,8 @@ In $_POST are included data in format:
 	'sync_token' => 'token',
 	'dataxml' => '<xml>
 <cl_users_id>123</cl_users_id>
+<email>email</email>
+<user_name>name</user_name>
 <subject>subject</subject>
 <message>message</message>
 <screenshot>screenshot in BASE64</screenshot>
@@ -90,7 +101,7 @@ In $_POST are included data in format:
 ##### If user is not logged in:
 ```php
 [
-	'sync_token' => 'token',
+	'sync_token' => 'tokem',
 	'dataxml' => '<xml>
 <email>email</email>
 <user_name>name</user_name>
@@ -118,6 +129,32 @@ Example of $_FILES content
 	'fileName3_ext' => [...]
 ]
 ```
+## Returned data from specified URL
+This component is expecting XML with specified structure.
+```xml
+<xml>
+<status></status>
+<error_message></error_message>
+</xml>
+```
+If everything is correctly processed:
+```xml
+<xml>
+<status>OK</status>
+<error_message></error_message>
+</xml>
+```
+In case of some errors:
+```xml
+<xml>
+<status>ERROR</status>
+<error_message>Described error. Remember, it's shown to user.</error_message>
+</xml>
+```
+
+
+
+
 ## Translation
 Component has autowired translator, which is registered in config file and implements `Nette\Localization\ITranslator` see [Nette Localization](https://doc.nette.org/cs/3.0/localization "Nette Localization")
 ## Conclusion
