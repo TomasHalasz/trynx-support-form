@@ -66,7 +66,12 @@ class RenderedFormFactory
      * @var bool
      */
     public static $hasError = false;
-
+	
+	/**
+	 * @var string
+	 */
+	public static $errorMessage;
+    
     /**
      * @var array
      */
@@ -147,14 +152,21 @@ class RenderedFormFactory
         if ($xml->status != 'OK') {
             Debugger::log('halaszFeedbackFormLOG ' . $server_output);
             self::$hasError = true;
-        }
+			self::$errorMessage = $xml->error_message;
+		}else{
+			$form->reset();
+		}
     }
     
     private function generateXML(array $post, ArrayHash $values): array
     {
+		$userIdentity = $this->user->getIdentity();
+			
         $post['dataxml'] = '<xml>';
         if ($this->user->isLoggedIn()) {
             $post['dataxml'] .= '<cl_users_id>' . $this->user->id . '</cl_users_id>';
+			$post['dataxml'] .= '<email>' . $userIdentity->email . '</email>';
+			$post['dataxml'] .= '<user_name>' . $userIdentity->name . '</user_name>';
         } else {
             $post['dataxml'] .= '<email>' . $values->{self::FORM_INPUT_EMAIL} . '</email>';
             $post['dataxml'] .= '<user_name>' . $values->{self::FORM_INPUT_NAME} . '</user_name>';
@@ -174,14 +186,14 @@ class RenderedFormFactory
     private function addFilesToPOST(array $post, ArrayHash $values): array
     {
         for ($i = 0; $i < $this->maxFiles; $i++) {
-            $post['dataxml'] .= '<file' . ($i + 1) . '>';
             if (isset($values->{self::FORM_INPUT_FILES}[$i])) {
+				$post['dataxml'] .= '<file' . ($i + 1) . '>';
                 $fileUpload = $values->{self::FORM_INPUT_FILES}[$i];
                 $name = $fileUpload->getName();
                 $post['dataxml'] .= $name;
                 $post[$name] = new CURLFile($fileUpload->getTemporaryFile(), $fileUpload->getContentType());
+				$post['dataxml'] .= '</file' . ($i + 1) . '>';
             }
-            $post['dataxml'] .= '</file' . ($i + 1) . '>';
         }
         
         return $post;
@@ -221,4 +233,5 @@ class RenderedFormFactory
     {
         $this->sendButtonText = $text;
     }
+    
 }

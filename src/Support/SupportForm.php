@@ -90,14 +90,15 @@ class SupportForm extends Control
     public function onSuccess(): void
     {
         if (RenderedFormFactory::$hasError) {
-            $this->flashMessage($this->messages['error'], 'halaszFlashError');
+            $this->flashMessage($this->messages['error'] . RenderedFormFactory::$errorMessage, 'halaszFlashError');
         } else {
             $this->flashMessage($this->messages['success'], 'halaszFlashSuccess');
         }
-        
         if (!$this->httpRequest->isAjax()) {
             $this->redirect('this');
-        }
+		}else{
+			$this->redrawControl('halaszFeedbackForm');
+		}
     }
     
     public function setTitle(string $title): void

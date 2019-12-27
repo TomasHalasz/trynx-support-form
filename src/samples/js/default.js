@@ -24,29 +24,30 @@ axleFF.showThumbnail = function () {
 };
 
 axleFF.init = function () {
-    $('#halasz_feedback_form_files_selector').on('click', function (e) {
+
+    $(document).on('click','#halasz_feedback_form_files_selector', function(e) {
         $('#halasz_feedback_form_files').trigger('click');
     });
     
-    $('.halasz_file_selector').on('click', function (e) {
+    $(document).on('click','.halasz_file_selector', function(e) {
         $('#halasz_feedback_form_files').trigger('click');
     });
     
-    $('#halasz_feedback_form_files').on('change', function (e) {
+    $(document).on('change','#halasz_feedback_form_files', function(e) {
         axleFF.showFileNames(e.target.files);
     });
     
     axleFF.showFileNames($('#halasz_feedback_form_files').prop('files'));
     axleFF.showThumbnail();
     
-    document.querySelector("#btn-halasz-inform").addEventListener("click", function() {
-        $(".modal-backdrop").attr('data-html2canvas-ignore', 'true') ;
+    $(document).on('click','#btn-halasz-inform', function(e) {
+        $(".modal-backdrop").attr('data-html2canvas-ignore', 'true');
         html2canvas(
-            document.body, 
-            { 
+            document.body,
+            {
                 scale: 1
             }
-        ).then(function(canvas) {
+        ).then(function (canvas) {
             var image = $('#halasz_screenshot');
             var canvasData = canvas.toDataURL();
 
@@ -54,7 +55,7 @@ axleFF.init = function () {
 
             $('#halasz_feedback_form_image').val(canvasData);
         });
-    }, false);
+    });
 };
 
 
