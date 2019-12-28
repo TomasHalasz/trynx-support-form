@@ -125,4 +125,12 @@ class SupportForm extends Control
     {
         $this->messages = $messages;
     }
+    
+    public function flashMessage($message, string $type = 'info'): \stdClass
+    {
+        if ($this->translator) {
+            $message = $this->translator->translate($message);
+        }
+        return parent::flashMessage($message, $type);
+    }
 }

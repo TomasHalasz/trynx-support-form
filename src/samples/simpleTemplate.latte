@@ -7,7 +7,7 @@
             </div>
             {form renderedForm, class => 'ajax'}
             <div class="modal-body">
-                <div class="row" n:if="count($flashes) > 0">
+                <div class="row halasz-support-form-flashes" n:if="count($flashes) > 0">
                     <div class="col-12">
                         <div class="alert__wrapper">
                             <div n:foreach="$flashes as $flash" n:class="$flash->type" role="alert">

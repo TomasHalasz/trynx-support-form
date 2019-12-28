@@ -6,7 +6,7 @@ var axleFF = halasz.SupportForm;
 
 axleFF.showFileNames = function (files) {
     var fileNames = '';
-    console.log(files);
+    
     $.each(files, function(idx,elm){
         if (fileNames !== '') {
             fileNames += ', ';
@@ -21,6 +21,10 @@ axleFF.showThumbnail = function () {
     var image = $('#halasz_screenshot');
 
     image.attr('src', $('#halasz_feedback_form_image').val());
+};
+
+axleFF.hideFlashes = function () {
+    $('.halasz-support-form-flashes').slideUp('slow');
 };
 
 axleFF.init = function () {
@@ -55,6 +59,10 @@ axleFF.init = function () {
 
             $('#halasz_feedback_form_image').val(canvasData);
         });
+    });
+    
+    $( document ).ajaxComplete(function() {
+        setTimeout(axleFF.hideFlashes, 3000);
     });
 };
 
