@@ -59,7 +59,7 @@ TrynxSupportForm:
 	syncToken: 'nothing'                                    # sync token, which is send to url with data from formular
 	idEmail: 'email_identity_column_name'                   # email column name in $this->user->getIdentity();
 	idName: 'username_identity_column_name'                 # username column name in $this->user->getIdentity();
-	defaultEmail: 'your@email.com'							# default email address for use when email in getIdentity() is empty    
+	defaultEmail: 'your@email.com'				# default email address for use when email in getIdentity() is empty    
 	flashMessage:
 		success: 'Your feedback has been sent. We will send E-Mail to you as soon as possible.'
 		error: 'We have encountered an error. Please try it again later.'
