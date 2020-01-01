@@ -60,6 +60,11 @@ class RenderedFormFactory
 	/**
 	 * @var string
 	 */
+	private $defaultEmail;
+	
+	/**
+	 * @var string
+	 */
 	private $idName;
     
     /**
@@ -176,7 +181,8 @@ class RenderedFormFactory
         $post['dataxml'] = '<xml>';
         if ($this->user->isLoggedIn()) {
             $post['dataxml'] .= '<cl_users_id>' . $this->user->id . '</cl_users_id>';
-			$post['dataxml'] .= '<email>' . $userIdentity->{$this->idEmail} . '</email>';
+			(!empty($userIdentity->{$this->idEmail})) ? $tmpEmail = $userIdentity->{$this->idEmail} : $tmpEmail = $this->defaultEmail;
+			$post['dataxml'] .= '<email>' . $tmpEmail . '</email>';
 			$post['dataxml'] .= '<user_name>' . $userIdentity->{$this->idName} . '</user_name>';
         } else {
             $post['dataxml'] .= '<email>' . $values->{self::FORM_INPUT_EMAIL} . '</email>';
@@ -223,6 +229,11 @@ class RenderedFormFactory
 	public function setIdEmail(string $idEmail): void
 	{
 		$this->idEmail = $idEmail;
+	}
+	
+	public function setDefaultEmail(string $defaultEmail): void
+	{
+		$this->defaultEmail = $defaultEmail;
 	}
 	
 	public function setIdName(string $idName): void

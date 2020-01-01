@@ -19,6 +19,7 @@ class SupportExtension extends CompilerExtension
         'syncToken' => 'nothing',
 		'idEmail' => 'email',
 		'idName' => 'name',
+		'defaultEmail' => '',
         'flashMessage' => [
             'success' => 'Your feedback has been sent. We will send E-Mail to you as soon as possible.',
             'error' => 'We have encountered an error. Please try it again later.',
@@ -57,6 +58,7 @@ class SupportExtension extends CompilerExtension
                 ->addSetup('setMaxFileSize', [$defaults['maxFileSize']])
                 ->addSetup('setPostUrl', [$defaults['postUrl']])
 				->addSetup('setIdEmail', [$defaults['idEmail']])
+				->addSetup('setDefaultEmail', [$defaults['defaultEmail']])
 				->addSetup('setIdName', [$defaults['idName']])
                 ->addSetup('setSyncToken', [$defaults['syncToken']])
                 ->addSetup('setSendButtonText', [$defaults['sendButtonText']])
