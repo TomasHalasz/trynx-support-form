@@ -51,6 +51,12 @@ class SupportForm extends Control
      * @var string
      */
     private $messages;
+	
+	/**
+	 * @var string
+	 */
+	private $errorMessage;
+	
 
     public function __construct(
             RenderedFormFactory $renderedFormFactory,
@@ -60,6 +66,7 @@ class SupportForm extends Control
         $this->translator = $translator;
         $this->renderedFormFactory = $renderedFormFactory;
         $this->httpRequest = $httpRequest;
+		//$this->renderedFormFactory->setErrorMessage[] = function($message){$this->setErrorMessage($message);};
     }
     
     public function render(): void
@@ -74,7 +81,7 @@ class SupportForm extends Control
     
     public function createComponentRenderedForm(): IComponent
     {
-        $form = $this->renderedFormFactory->create($this->translator);
+        $form = $this->renderedFormFactory->create($this->translator, false, function($message){$this->setErrorMessage($message);});
         $form->onValidate[] = [$this, 'onValidate'];
         $form->onSuccess[] = [$this, 'onSuccess'];
         return $form;
@@ -90,16 +97,22 @@ class SupportForm extends Control
     public function onSuccess(): void
     {
         if (RenderedFormFactory::$hasError) {
-            $this->flashMessage($this->messages['error'] . RenderedFormFactory::$errorMessage, 'halaszFlashError');
+            $this->flashMessage($this->messages['error'], 'halaszFlashError');
+            if ($this->errorMessage != '') {
+				$this->flashMessage($this->errorMessage, 'halaszFlashError');
+			}
         } else {
             $this->flashMessage($this->messages['success'], 'halaszFlashSuccess');
         }
         if (!$this->httpRequest->isAjax()) {
             $this->redirect('this');
-		}else{
-			$this->redrawControl('halaszFeedbackForm');
 		}
     }
+    
+    public function setErrorMessage($message): void
+	{
+		$this->errorMessage = $message;
+	}
     
     public function setTitle(string $title): void
     {

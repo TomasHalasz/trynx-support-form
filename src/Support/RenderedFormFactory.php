@@ -51,7 +51,17 @@ class RenderedFormFactory
      * @var string
      */
     private $postUrl;
-
+	
+	/**
+	 * @var string
+	 */
+	private $idEmail;
+	
+	/**
+	 * @var string
+	 */
+	private $idName;
+    
     /**
      * @var string
      */
@@ -68,9 +78,9 @@ class RenderedFormFactory
     public static $hasError = false;
 	
 	/**
-	 * @var string
+	 * @var callable
 	 */
-	public static $errorMessage;
+    public $setErrorMessage;
     
     /**
      * @var array
@@ -92,11 +102,11 @@ class RenderedFormFactory
         $this->user = $user;
     }
 
-    public function create(ITranslator $translator = null, bool $turnOffAutocomplete = false): Form
+    public function create(ITranslator $translator = null, bool $turnOffAutocomplete = false, $setErrorMessage): Form
     {
         $form = new Form();
+        $this->setErrorMessage = $setErrorMessage;
         $form->setTranslator($translator);
-        
         $formPrototype = $form->getElementPrototype();
         $formPrototype->setAttribute('novalidate', 'novalidate');
         
@@ -152,11 +162,12 @@ class RenderedFormFactory
         if ($xml->status != 'OK') {
             Debugger::log('halaszFeedbackFormLOG ' . $server_output);
             self::$hasError = true;
-			self::$errorMessage = $xml->error_message;
+			call_user_func($this->setErrorMessage,(string)$xml->error_message);
 		}else{
 			$form->reset();
 		}
     }
+    
     
     private function generateXML(array $post, ArrayHash $values): array
     {
@@ -165,8 +176,8 @@ class RenderedFormFactory
         $post['dataxml'] = '<xml>';
         if ($this->user->isLoggedIn()) {
             $post['dataxml'] .= '<cl_users_id>' . $this->user->id . '</cl_users_id>';
-			$post['dataxml'] .= '<email>' . $userIdentity->email . '</email>';
-			$post['dataxml'] .= '<user_name>' . $userIdentity->name . '</user_name>';
+			$post['dataxml'] .= '<email>' . $userIdentity->{$this->idEmail} . '</email>';
+			$post['dataxml'] .= '<user_name>' . $userIdentity->{$this->idName} . '</user_name>';
         } else {
             $post['dataxml'] .= '<email>' . $values->{self::FORM_INPUT_EMAIL} . '</email>';
             $post['dataxml'] .= '<user_name>' . $values->{self::FORM_INPUT_NAME} . '</user_name>';
@@ -208,6 +219,16 @@ class RenderedFormFactory
     {
         $this->postUrl = $url;
     }
+	
+	public function setIdEmail(string $idEmail): void
+	{
+		$this->idEmail = $idEmail;
+	}
+	
+	public function setIdName(string $idName): void
+	{
+		$this->idName = $idName;
+	}
     
     public function setSyncToken(string $token): void
     {
@@ -218,8 +239,14 @@ class RenderedFormFactory
     {
         $this->errors = $errors;
     }
-    
-    public function setMaxFiles(int $count): void
+	
+	//public function setErrorMessage(string $errorMessage): void
+	//{
+		//$this->errors = $errors;
+	//}
+	
+	
+	public function setMaxFiles(int $count): void
     {
         $this->maxFiles = $count;
     }

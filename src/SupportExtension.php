@@ -17,6 +17,8 @@ class SupportExtension extends CompilerExtension
         'screenshotButtonText' => 'Add Screenshot',
         'postUrl' => 'http://halasz.ajaximple.cz/www/test/test',
         'syncToken' => 'nothing',
+		'idEmail' => 'email',
+		'idName' => 'name',
         'flashMessage' => [
             'success' => 'Your feedback has been sent. We will send E-Mail to you as soon as possible.',
             'error' => 'We have encountered an error. Please try it again later.',
@@ -54,6 +56,8 @@ class SupportExtension extends CompilerExtension
                 ->addSetup('setMaxFiles', [$defaults['maxFiles']])
                 ->addSetup('setMaxFileSize', [$defaults['maxFileSize']])
                 ->addSetup('setPostUrl', [$defaults['postUrl']])
+				->addSetup('setIdEmail', [$defaults['idEmail']])
+				->addSetup('setIdName', [$defaults['idName']])
                 ->addSetup('setSyncToken', [$defaults['syncToken']])
                 ->addSetup('setSendButtonText', [$defaults['sendButtonText']])
                 ->addSetup('setLabels', [$defaults['labels']])

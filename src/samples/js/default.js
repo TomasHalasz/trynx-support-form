@@ -62,7 +62,7 @@ axleFF.init = function () {
     });
     
     $( document ).ajaxComplete(function() {
-        setTimeout(axleFF.hideFlashes, 3000);
+        setTimeout(axleFF.hideFlashes, 5000);
     });
 };
 

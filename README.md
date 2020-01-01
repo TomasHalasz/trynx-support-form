@@ -57,6 +57,8 @@ TrynxSupportForm:
 	screenshotButtonText: 'Add Screenshot'                  # text in button which is used to make screenshot
 	postUrl: 'http://halasz.ajaximple.cz/www/test/test'     # URL address where may be send data from formular
 	syncToken: 'nothing'                                    # sync token, which is send to url with data from formular
+	idEmail: 'email_identity_column_name'                   # email column name in $this->user->getIdentity();
+	idName: 'username_identity_column_name'                 # username column name in $this->user->getIdentity();    
 	flashMessage:
 		success: 'Your feedback has been sent. We will send E-Mail to you as soon as possible.'
 		error: 'We have encountered an error. Please try it again later.'
