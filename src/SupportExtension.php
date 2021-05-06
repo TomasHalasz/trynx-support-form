@@ -10,16 +10,17 @@ class SupportExtension extends CompilerExtension
     private $defaults = [
         'template' => (__DIR__ . '/samples/simpleTemplate.latte'),
         'maxFiles' => 3,
-        'maxFileSize' => (3 * 1024 * 1024), 
+        'maxFileSize' => (3 * 1024 * 1024),
         'title' => 'Feedback form',
         'invokeButtonText' => 'online support',
         'sendButtonText' => 'Send feedback',
         'screenshotButtonText' => 'Add Screenshot',
         'postUrl' => 'http://halasz.ajaximple.cz/www/test/test',
         'syncToken' => 'nothing',
-		'idEmail' => 'email',
-		'idName' => 'name',
-		'defaultEmail' => '',
+        'idEmail' => 'email',
+        'idEmail2' => 'email2',
+        'idName' => 'name',
+        'defaultEmail' => '',
         'flashMessage' => [
             'success' => 'Your feedback has been sent. We will send E-Mail to you as soon as possible.',
             'error' => 'We have encountered an error. Please try it again later.',
@@ -43,34 +44,35 @@ class SupportExtension extends CompilerExtension
             RenderedFormFactory::FORM_INPUT_FILES . '_mimes' => 'Is allowed to upload only files with this types: GIF, JPG, PNG, txt, xls, doc, zip or rar',
         ]
     ];
-    
+
     public function loadConfiguration()
     {
         $defaults = $this->validateConfig($this->defaults);
         $builder = $this->getContainerBuilder();
-        
+
         $this->compiler->loadDefinitionsFromConfig(
             $this->loadFromFile(__DIR__ . '/config/common.neon')['services']
         );
-        
+
         $builder->getDefinition('HalaszRenderedFormFactory')
-                ->addSetup('setMaxFiles', [$defaults['maxFiles']])
-                ->addSetup('setMaxFileSize', [$defaults['maxFileSize']])
-                ->addSetup('setPostUrl', [$defaults['postUrl']])
-				->addSetup('setIdEmail', [$defaults['idEmail']])
-				->addSetup('setDefaultEmail', [$defaults['defaultEmail']])
-				->addSetup('setIdName', [$defaults['idName']])
-                ->addSetup('setSyncToken', [$defaults['syncToken']])
-                ->addSetup('setSendButtonText', [$defaults['sendButtonText']])
-                ->addSetup('setLabels', [$defaults['labels']])
-                ->addSetup('setErrors', [$defaults['errors']]);
-        
+            ->addSetup('setMaxFiles', [$defaults['maxFiles']])
+            ->addSetup('setMaxFileSize', [$defaults['maxFileSize']])
+            ->addSetup('setPostUrl', [$defaults['postUrl']])
+            ->addSetup('setIdEmail', [$defaults['idEmail']])
+            ->addSetup('setIdEmail2', [$defaults['idEmail2']])
+            ->addSetup('setDefaultEmail', [$defaults['defaultEmail']])
+            ->addSetup('setIdName', [$defaults['idName']])
+            ->addSetup('setSyncToken', [$defaults['syncToken']])
+            ->addSetup('setSendButtonText', [$defaults['sendButtonText']])
+            ->addSetup('setLabels', [$defaults['labels']])
+            ->addSetup('setErrors', [$defaults['errors']]);
+
         $builder->getDefinition('HalaszSupportForm')
-                ->getResultDefinition()
-                ->addSetup('setTitle', [$defaults['title']])
-                ->addSetup('setInvokeButtonText', [$defaults['invokeButtonText']])
-                ->addSetup('setTemplatePath', [$defaults['template']])
-                ->addSetup('setFlashMessage', [$defaults['flashMessage']])
-                ->addSetup('setScreenshotButtonText', [$defaults['screenshotButtonText']]);
+            ->getResultDefinition()
+            ->addSetup('setTitle', [$defaults['title']])
+            ->addSetup('setInvokeButtonText', [$defaults['invokeButtonText']])
+            ->addSetup('setTemplatePath', [$defaults['template']])
+            ->addSetup('setFlashMessage', [$defaults['flashMessage']])
+            ->addSetup('setScreenshotButtonText', [$defaults['screenshotButtonText']]);
     }
 }
