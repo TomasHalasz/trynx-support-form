@@ -191,7 +191,7 @@ class RenderedFormFactory
             if (!empty($userIdentity->{$this->idEmail2}))
             {
                 $tmpEmail = $userIdentity->{$this->idEmail2};
-            }else{
+            }elseif (empty($tmpEmail)){
                 $tmpEmail = $this->defaultEmail;
             }
             $post['dataxml'] .= '<email>' . $tmpEmail . '</email>';
