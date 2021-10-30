@@ -58,6 +58,7 @@ TrynxSupportForm:
 	postUrl: 'http://halasz.ajaximple.cz/www/test/test'     # URL address where may be send data from formular
 	syncToken: 'nothing'                                    # sync token, which is send to url with data from formular
 	idEmail: 'email_identity_column_name'                   # email column name in $this->user->getIdentity();
+	idEmail2: 'alternate email_identity_column_name'        # column name with alternate email in $this->user->getIdentity(); if it's value is not empty, it's used instead idEmail 
 	idName: 'username_identity_column_name'                 # username column name in $this->user->getIdentity();
 	defaultEmail: 'your@email.com'				# default email address for use when email in getIdentity() is empty    
 	flashMessage:
